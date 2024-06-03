@@ -3,13 +3,15 @@ const User = require('./db/models/User');
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = 5000;
+const jwtSecret = 'xyz';
 
 // Middleware
-app.use(express.json());
-app.use(cors());
+app.use(express.json());  // Parsing JSON Payloads (Parsing The data being transmitted in JSON format)
+app.use(cors());          // Handling Cross-Origin Requests
 
 app.get('/', (req, res) => {
     res.send("Hello World");
@@ -25,15 +27,17 @@ app.post('/register', async (req, res) => {
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({
+      const user = new User({
         name,
         email,
         password: hashedPassword,
       });
 
-      await newUser.save();
+      await user.save();
+      console.log("user", user);
+      const token = jwt.sign({id:user._id}, jwtSecret, { expiresIn: '1h'})
   
-      res.status(201).json({ message: 'User registered successfully', user: newUser });
+      res.status(201).json({ message: 'User registered successfully', token, user: { id: user._id, name: user.name } });
     } catch (error) {
       console.error('Error registering user:', error);
       res.status(500).json({ message: 'Server error', error });
@@ -49,7 +53,9 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
-        res.status(200).json({ message: 'Login successful', user });
+        const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1h' });
+
+        res.status(200).json({ message: 'Login successful', token, user: { id: user._id, name: user.name } });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'Server error', error });
