@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoURI = 'mongodb+srv://Loginreg:LoginRegistrationPassword@login-registration.pdnh0qt.mongodb.net/?retryWrites=true&w=majority&appName=login-registration';
+const mongoURI = process.env.mongoURI;
 
 mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB connected!'))
