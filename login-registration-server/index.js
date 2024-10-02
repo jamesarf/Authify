@@ -7,15 +7,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const port = 5000;
-const jwtSecret = 'xyz';
+const PORT = process.env.PORT || 5001;
+const jwtSecret = process.env.JWT_SECRET;
 
 // Middleware
 app.use(express.json());  // Parsing JSON Payloads (Parsing The data being transmitted in JSON format)
 app.use(cors());          // Handling Cross-Origin Requests
 
 app.get('/', (req, res) => {
-    res.send("Hello World");
+    res.send("Server is running...");
 });
 
 app.post('/register', async (req, res) => {
@@ -64,6 +64,6 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
