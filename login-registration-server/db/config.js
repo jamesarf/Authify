@@ -4,6 +4,6 @@ const mongoURI = 'mongodb+srv://Loginreg:LoginRegistrationPassword@login-registr
 
 mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB connected!'))
-    .catch(err => console.log('MongoDB connection error:', err));
+    .catch(err => console.error('MongoDB connection error:', err));
 
 module.exports = mongoose;
