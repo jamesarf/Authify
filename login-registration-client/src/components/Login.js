@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,11 +15,16 @@ const Login = () => {
     }
   }, [navigate]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Email:', email, 'Password:', password);
-    localStorage.setItem('reactAuthUser', JSON.stringify({ email }));
-    navigate('/');
+    try {
+      const response = await axios.post('http://localhost:5000/login', { email, password });
+      localStorage.setItem('reactAuthToken', response.data.token); // Store token
+      localStorage.setItem('reactAuthUser', JSON.stringify(response.data.user)); // Store user info
+      navigate('/');
+    } catch (error) {
+      setError(error.response?.data?.message || 'Login failed');
+    }
   };
 
   const navigateToSignup = () => {
@@ -28,6 +35,7 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
       <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
