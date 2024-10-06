@@ -50,13 +50,13 @@ This is a full-stack web application for user login and registration, using Reac
 
 3. Install the dependencies for the client:
     ```
-    cd client
+    cd login-registration-client
     npm install
     ```
 
 4. Install the dependencies for the server:
     ```
-    cd ../server
+    cd ../login-registration-server
     npm install
     ```
 
@@ -70,13 +70,13 @@ This is a full-stack web application for user login and registration, using Reac
 
 1. Start the backend server:
     ```
-    cd server
+    cd login-registration-server
     npm run start
     ```
 
 2. Start the frontend:
     ```
-    cd client
+    cd login-registration-client
     npm run start
     ```
 
@@ -91,23 +91,46 @@ This is a full-stack web application for user login and registration, using Reac
 
 ```
 login-registration-app/
-├── client/                    # Frontend (React)
+├── login-registration-client/                    # Frontend (React)
 │   ├── public/
 │   ├── src/
-│   │   ├── components/         # React components (Home, Login, Register, About, Contact, Navbar)
+│   │   ├── components/         # React components (Home, Login, Register, About, Contact, Navbar, ProtectedRoute)
 │   │   ├── App.js              # Main App component
 │   │   ├── index.js            # Entry point
 │   ├── package.json
 │   └── tailwind.config.js
-├── server/                    # Backend (Node.js & Express)
+├── login-registration-server/                    # Backend (Node.js & Express)
 │   ├── db/                    # Database configurations and models
-│   ├── routes/                # API route handlers
-│   ├── index.js               # Entry point
+│   ├── index.js               # Entry point, API route handlers
 │   ├── package.json
 │   └── .env                   # Environment variables (JWT secret, MongoDB URI)
 └── README.md
 ```
+## Usage
 
-## License
+1. **Register a New User**
+   - Go to `http://localhost:3000/register`.
+   - Provide a name, email, and password to create a new account.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+2. **Login**
+   - Go to `http://localhost:3000/login`.
+   - Use your registered email and password to log in.
+   - After logging in, you can access protected routes like About and Contact.
+
+3. **Logout**
+   - Click on the Logout button in the navigation bar to log out and clear the user session from localStorage.
+
+## Backend Routes
+
+- **POST** `/register`: Registers a new user.
+- **POST** `/login`: Logs in a user and returns a JWT token.
+- **GET** `/`: Base route to check server status.
+
+## Frontend Routes
+
+- `/`: Home page (Public).
+- `/login`: Login page (Public).
+- `/register`: Registration page (Public).
+- `/about`: About page (Protected, requires login).
+- `/contact`: Contact page (Protected, requires login).
+
