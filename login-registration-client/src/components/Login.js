@@ -18,7 +18,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('https://react-jwt-login-registration-app-server.onrender.com/login', { email, password });
       localStorage.setItem('reactAuthToken', response.data.token); // Store token
       localStorage.setItem('reactAuthUser', JSON.stringify(response.data.user)); // Store user info
       navigate('/');
