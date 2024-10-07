@@ -24,6 +24,7 @@ You can check the live version of the project here:
 - Axios: v1.7.2
 - Tailwind CSS: v3.4.13
 - React Scripts: v5.0.1
+- Deployed via GitHub Pages.
 
 ### Server Side (Node.js & Express)
 - Express: v4.x
@@ -32,6 +33,7 @@ You can check the live version of the project here:
 - JWT for token-based authentication
 - dotenv for environment variables
 - CORS for cross-origin requests
+- Deployed via Render.
 
 ## Getting Started
 
