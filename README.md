@@ -91,7 +91,7 @@ This is a full-stack web application for user login and registration, using Reac
 
 ```
 login-registration/
-├── login-registration-client/                    # Frontend (React)
+├── login-registration-client/  # Frontend (React)
 │   ├── public/
 │   ├── src/
 │   │   ├── components/         # React components (Home, Login, Register, About, Contact, Navbar, ProtectedRoute)
@@ -99,7 +99,7 @@ login-registration/
 │   │   ├── index.js            # Entry point
 │   ├── package.json
 │   └── tailwind.config.js
-├── login-registration-server/                    # Backend (Node.js & Express)
+├── login-registration-server/ # Backend (Node.js & Express)
 │   ├── db/                    # Database configurations and models
 │   ├── index.js               # Entry point, API route handlers
 │   ├── package.json
