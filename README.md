@@ -40,12 +40,12 @@ This is a full-stack web application for user login and registration, using Reac
 
 1. Clone the repository:
     ```
-    git clone https://github.com/your-username/login-registration-app.git
+    git clone https://github.com/jamesarf/login-registration.git
     ```
 
 2. Navigate to the project directory:
     ```
-    cd login-registration-app
+    cd login-registration
     ```
 
 3. Install the dependencies for the client:
@@ -90,7 +90,7 @@ This is a full-stack web application for user login and registration, using Reac
 ## File Structure
 
 ```
-login-registration-app/
+login-registration/
 ├── login-registration-client/                    # Frontend (React)
 │   ├── public/
 │   ├── src/
