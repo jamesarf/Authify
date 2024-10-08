@@ -10,7 +10,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("apiUrl",apiUrl);
     const user = localStorage.getItem('reactAuthUser');
     if (user) {
       navigate('/');

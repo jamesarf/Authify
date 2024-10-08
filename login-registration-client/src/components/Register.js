@@ -25,7 +25,6 @@ const Register = () => {
       localStorage.setItem('reactAuthUser', JSON.stringify(response.data.user)); // Store user info
       navigate('/');
     } catch (error) {
-      console.log(error);
       setError(error.response?.data?.message || 'Registration failed');
     }
   };
