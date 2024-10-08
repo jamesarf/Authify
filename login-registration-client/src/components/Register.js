@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Register = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +20,7 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://react-jwt-login-registration-app-server.onrender.com/register', { name, email, password });
+      const response = await axios.post(`${apiUrl}/register`, { name, email, password });
       localStorage.setItem('reactAuthToken', response.data.token); // Store token
       localStorage.setItem('reactAuthUser', JSON.stringify(response.data.user)); // Store user info
       navigate('/');

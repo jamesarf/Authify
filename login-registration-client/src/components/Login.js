@@ -3,22 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("apiUrl",apiUrl);
     const user = localStorage.getItem('reactAuthUser');
     if (user) {
       navigate('/');
     }
-  }, [navigate]);
+  }, [navigate,apiUrl]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://react-jwt-login-registration-app-server.onrender.com/login', { email, password });
+      const response = await axios.post(`${apiUrl}/login`, { email, password });
       localStorage.setItem('reactAuthToken', response.data.token); // Store token
       localStorage.setItem('reactAuthUser', JSON.stringify(response.data.user)); // Store user info
       navigate('/');
