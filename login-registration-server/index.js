@@ -14,9 +14,30 @@ const jwtSecret = process.env.JWT_SECRET;
 app.use(express.json());  // Parsing JSON Payloads (Parsing The data being transmitted in JSON format)
 app.use(cors());          // Handling Cross-Origin Requests
 
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];  // Get token from header
+  if (!token) {
+    return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;  // Attach user data to request object
+    next();  // Move to the next middleware or route handler
+  } catch (error) {
+    res.status(403).json({ message: 'Invalid token.' });
+  }
+};
+
+
 app.get('/', (req, res) => {
     res.send("Server is running...");
 });
+
+app.get('/protected', verifyToken, (req, res) => {
+  res.status(200).json({ message: 'This is a protected route', user: req.user });
+});
+
 
 app.post('/register', async (req, res) => {
     try {
