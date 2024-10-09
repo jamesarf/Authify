@@ -21,6 +21,7 @@ const ProtectedRoute = ({ children, redirectTo, requiresAuth }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const isAuthorized = true; // Token is valid, user is authorized
+    alert("Token is valid, user is authorized");
   } catch (err) {
     localStorage.removeItem('reactAuthUser');
     localStorage.removeItem('reactAuthToken');
