@@ -3,11 +3,12 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ProtectedRoute = ({ children, redirectTo, requiresAuth }) => {
+  const isAuthorized = false;
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const user = localStorage.getItem('reactAuthUser');
   const token = localStorage.getItem('reactAuthToken');
-  
-  useEffect(() => {
+  useEffect(()=>{
     const checkAuth = async () => {
       if (!user) {
         alert("Unauthorized! Please log in.");
@@ -22,22 +23,36 @@ const ProtectedRoute = ({ children, redirectTo, requiresAuth }) => {
       }
 
       try {
-        await axios.get(`${apiUrl}/protected`, {
+        const response = await axios.get(`${apiUrl}/protected`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        // Token is valid, user is authorized
+        console.log("response", response);
+        isAuthorized = true; // Token is valid, user is authorized
+        alert("Token is valid, user is authorized");
       } catch (err) {
+        console.log("response err", err);
+        alert("Session expired, please log in again.");
         localStorage.removeItem('reactAuthUser');
         localStorage.removeItem('reactAuthToken');
-        alert("Session expired, please log in again.");
+        
         navigate('/login');  // Redirect if token verification fails
       }
-    };
 
+      if (requiresAuth && !isAuthorized) {
+        return <Navigate to="/login" />;
+      }
+
+      if (!requiresAuth && isAuthorized) {
+        return <Navigate to={redirectTo} />;
+      }
+    }
     checkAuth();
-  }, [user, token, navigate]);
 
-  return (requiresAuth && !token) ? <Navigate to={redirectTo} /> : children;
-};
+   }, [user, token, navigate]);
+
+  
+
+  return children;
+}
 
 export default ProtectedRoute;
