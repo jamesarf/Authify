@@ -17,8 +17,7 @@ function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can handle the form submission, e.g., send the form data to an API or email service
-    alert('Thank you for your message! However, the backend for this form is not implemented yet. We will notify you once it is functional.');
+    alert('Thank you for your message!');
   };
 
   return (

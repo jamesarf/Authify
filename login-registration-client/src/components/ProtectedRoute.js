@@ -1,58 +1,50 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ProtectedRoute = ({ children, redirectTo, requiresAuth }) => {
-  const isAuthorized = false;
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const [isAuthorized, setIsAuthorized] = useState(null); 
   const navigate = useNavigate();
   const user = localStorage.getItem('reactAuthUser');
   const token = localStorage.getItem('reactAuthToken');
-  useEffect(()=>{
-    const checkAuth = async () => {
-      if (!user) {
-        alert("Unauthorized! Please log in.");
-        navigate('/login');  // Redirect to login if no user
-        return;
-      }
+  const apiUrl = process.env.REACT_APP_API_URL;
 
-      if (!token) {
-        alert("Unauthorized! Please log in.");
-        navigate('/login');  // Redirect to login if no token
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (!user || !token) {
+        setIsAuthorized(false);
         return;
       }
 
       try {
-        const response = await axios.get(`${apiUrl}/protected`, {
+        await axios.get(`${apiUrl}/protected`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log("response", response);
-        isAuthorized = true; // Token is valid, user is authorized
-        alert("Token is valid, user is authorized");
+        setIsAuthorized(true);
       } catch (err) {
-        console.log("response err", err);
-        alert("Session expired, please log in again.");
         localStorage.removeItem('reactAuthUser');
         localStorage.removeItem('reactAuthToken');
-        
-        navigate('/login');  // Redirect if token verification fails
+        setIsAuthorized(false);
+        navigate('/login');
       }
+    };
 
-      if (requiresAuth && !isAuthorized) {
-        return <Navigate to="/login" />;
-      }
-
-      if (!requiresAuth && isAuthorized) {
-        return <Navigate to={redirectTo} />;
-      }
-    }
     checkAuth();
+  }, [user, token, apiUrl, navigate]);
 
-   }, [user, token, navigate]);
+  if (isAuthorized === null) {
+    return <div>Loading...</div>;  // Show loading while checking
+  }
 
-  
+  if (requiresAuth && !isAuthorized) {
+    return <Navigate to="/login" />;
+  }
+
+  if (!requiresAuth && isAuthorized) {
+    return <Navigate to={redirectTo} />;
+  }
 
   return children;
-}
+};
 
 export default ProtectedRoute;
