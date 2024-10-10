@@ -1,5 +1,5 @@
 
-# Login Registration Application
+# Authify
 
 This is a full-stack web application for user login and registration, using React on the frontend and Node.js with Express on the backend. This project demonstrates a simple authentication system with JWT (JSON Web Token) for protected routes.
 
@@ -47,7 +47,7 @@ You can check the live version of the project here:
 
 1. Clone the repository:
     ```
-    git clone https://github.com/jamesarf/login-registration.git
+    git clone https://github.com/jamesarf/Authify.git
     ```
 
 2. Navigate to the project directory:
@@ -55,15 +55,15 @@ You can check the live version of the project here:
     cd login-registration
     ```
 
-3. Install the dependencies for the client:
+3. Install the dependencies for the frontend:
     ```
-    cd login-registration-client
+    cd frontend
     npm install
     ```
 
-4. Install the dependencies for the server:
+4. Install the dependencies for the backend:
     ```
-    cd ../login-registration-server
+    cd ../backend
     npm install
     ```
 
@@ -77,14 +77,14 @@ You can check the live version of the project here:
 
 1. Start the backend server:
     ```
-    cd login-registration-server
-    npm run start
+    cd backend
+    node index.js
     ```
 
 2. Start the frontend:
     ```
-    cd login-registration-client
-    npm run start
+    cd frontend
+    npm start
     ```
 
 3. The frontend will be running on `http://localhost:3000` and the backend on `http://localhost:5001`.
@@ -97,8 +97,8 @@ You can check the live version of the project here:
 ## File Structure
 
 ```
-login-registration/
-├── login-registration-client/  # Frontend (React)
+Authify/
+├── frontend/  # Frontend (React)
 │   ├── public/
 │   ├── src/
 │   │   ├── components/         # React components (Home, Login, Register, About, Contact, Navbar, ProtectedRoute)
@@ -106,7 +106,7 @@ login-registration/
 │   │   ├── index.js            # Entry point
 │   ├── package.json
 │   └── tailwind.config.js
-├── login-registration-server/ # Backend (Node.js & Express)
+├── backend/ # Backend (Node.js & Express)
 │   ├── db/                    # Database configurations and models
 │   ├── index.js               # Entry point, API route handlers
 │   ├── package.json
