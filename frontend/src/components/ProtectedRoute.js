@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Loading from "../components/Loading";
 
 const ProtectedRoute = ({ children, redirectTo, requiresAuth }) => {
   const [isAuthorized, setIsAuthorized] = useState(null); 
@@ -33,7 +34,7 @@ const ProtectedRoute = ({ children, redirectTo, requiresAuth }) => {
   }, [user, token, apiUrl, navigate]);
 
   if (isAuthorized === null) {
-    return <div>Loading...</div>;  // Show loading while checking
+    return <Loading/>;
   }
 
   if (requiresAuth && !isAuthorized) {

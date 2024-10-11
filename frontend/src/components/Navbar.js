@@ -1,20 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Navbar() {
-  const [user, setUser] = useState(null);
+  const [isAuthorized, setIsAuthorized] = useState(null); 
   const navigate = useNavigate();
+  const user = localStorage.getItem('reactAuthUser');
+  const token = localStorage.getItem('reactAuthToken');
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    const user = localStorage.getItem('reactAuthUser');
-    user && setUser(user);
-  }, [navigate]);
+    const checkAuth = async () => {
+      if (!user || !token) {
+        setIsAuthorized(false);
+        return;
+      }
+
+      try {
+        await axios.get(`${apiUrl}/protected`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setIsAuthorized(true);
+      } catch (err) {
+        localStorage.removeItem('reactAuthUser');
+        localStorage.removeItem('reactAuthToken');
+        setIsAuthorized(false);
+        navigate('/login');
+      }
+    };
+
+    checkAuth();
+  }, [user, token, apiUrl, navigate]);
+
+  // useEffect(() => {
+  //   const user = localStorage.getItem('reactAuthUser');
+  //   user && setUser(user);
+  // }, [navigate]);
 
   const logout = () => {
     localStorage.removeItem('reactAuthUser');
     localStorage.removeItem('reactAuthToken');
-    setUser(null);
+    setIsAuthorized(null);
     navigate('/login');
   };
 
@@ -33,7 +60,7 @@ function Navbar() {
         <div className="hidden md:flex space-x-4">
           
 
-          {!user && (
+          {!isAuthorized && (
             <>
               <Link to="/" className="text-white hover:bg-indigo-700 px-3 py-2 no-underline rounded">
                 Home
@@ -43,7 +70,7 @@ function Navbar() {
               </Link>
             </>
           )}
-          {user && (
+          {isAuthorized && (
           <>
             <Link to="/" className="text-white hover:bg-indigo-700 px-3 py-2 no-underline rounded">
               Home

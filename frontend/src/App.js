@@ -16,7 +16,7 @@ function App() {
         <Navbar/>
           <Routes>
               <Route path="/" element={<Home/>} />
-              <Route path="/login-registration" element={<Home/>} />  // For github pages landing page
+              <Route path="/Authify" element={<Home/>} />  // For github pages landing page
               <Route path="/login" element={ <ProtectedRoute redirectTo="/" requiresAuth={false}><Login/></ProtectedRoute> }/>
               <Route path="/register" element={<ProtectedRoute redirectTo="/" requiresAuth={false}><Register/></ProtectedRoute>} />
               <Route path="/about" element={<ProtectedRoute redirectTo="/" requiresAuth={true}><About/></ProtectedRoute>} />
