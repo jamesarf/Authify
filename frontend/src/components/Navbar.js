@@ -33,11 +33,6 @@ function Navbar() {
     checkAuth();
   }, [user, token, apiUrl, navigate]);
 
-  // useEffect(() => {
-  //   const user = localStorage.getItem('reactAuthUser');
-  //   user && setUser(user);
-  // }, [navigate]);
-
   const logout = () => {
     localStorage.removeItem('reactAuthUser');
     localStorage.removeItem('reactAuthToken');
