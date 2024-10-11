@@ -7,7 +7,8 @@ This is a full-stack web application for user login and registration, using Reac
 ## Live Demo
 
 You can check the live version of the project here:  
-[Live Demo: Deployed via GitHub Pages] (https://jamesarf.github.io/Authify/)
+- (Deployed via GitHub Pages and Render)
+[Live Demo] (https://jamesarf.github.io/Authify/)
 
 
 ## Features
