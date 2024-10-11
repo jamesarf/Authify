@@ -4,6 +4,12 @@
 This is a full-stack web application for user login and registration, using React on the frontend and Node.js with Express on the backend. This project demonstrates a simple authentication system with JWT (JSON Web Token) for protected routes.
 
 
+## Live Demo
+
+You can check the live version of the project here:  
+[Live Demo: Deployed via GitHub Pages] (https://jamesarf.github.io/Authify/)
+
+
 ## Features
 
 - User authentication with JWT (JSON Web Token)
