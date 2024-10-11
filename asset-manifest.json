@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Authify/static/css/main.4f241007.css",
+    "main.js": "/Authify/static/js/main.65c4294f.js",
+    "static/js/453.791315ec.chunk.js": "/Authify/static/js/453.791315ec.chunk.js",
+    "index.html": "/Authify/index.html",
+    "main.4f241007.css.map": "/Authify/static/css/main.4f241007.css.map",
+    "main.65c4294f.js.map": "/Authify/static/js/main.65c4294f.js.map",
+    "453.791315ec.chunk.js.map": "/Authify/static/js/453.791315ec.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4f241007.css",
+    "static/js/main.65c4294f.js"
+  ]
+}
